@@ -275,7 +275,7 @@ bool sfTkArdUART::find(CONSTVAR uint8_t *target)
     if (!_hwSerial)
         return false;
 
-    return _hwSerial->find(target);
+    return _hwSerial->find(const_cast<uint8_t *>(target));
 }
 
 bool sfTkArdUART::find(CONSTVAR char *target, size_t length)
@@ -351,20 +351,22 @@ float sfTkArdUART::parseFloat()
     return _hwSerial->parseFloat();
 }
 #else
-long sfTkArdUART::parseInt(LookaheadMode lookahead, char ignore)
+long sfTkArdUART::parseInt(LookaheadMode lookahead, char /*ignore*/)
 {
     if (!_hwSerial)
         return 0;
 
-    return _hwSerial->parseInt(lookahead, ignore);
+    // can't access skipChar version; fallback
+    return _hwSerial->parseInt();
 }
 
-float sfTkArdUART::parseFloat(LookaheadMode lookahead, char ignore)
+float sfTkArdUART::parseFloat(LookaheadMode lookahead, char /*ignore*/)
 {
     if (!_hwSerial)
         return 0.0f;
 
-    return _hwSerial->parseFloat(lookahead, ignore);
+    // can't access skipChar version; fallback
+    return _hwSerial->parseFloat();
 }
 #endif
 

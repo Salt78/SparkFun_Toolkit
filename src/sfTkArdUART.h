@@ -16,6 +16,7 @@
 #include <Arduino.h>
 #include <HardwareSerial.h>
 #include <Print.h>
+#include "compat_LOOKAHEAD.hpp"
 #include <Stream.h>
 
 // clang-format off
